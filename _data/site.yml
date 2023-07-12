@@ -1,7 +1,7 @@
 name: Name
 title: Military Time Diff
 description: >- # this means to ignore newlines until the next yaml key
-  Lorem Ipsum.
+  Calculate time between military times, particularly useful for aviation log times.
 color: "#a5a5ff"
 background_color: "#333333"
 logo: "assets/img/logo.png"
