@@ -1,0 +1,80 @@
+html {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+}
+
+.sections a {
+    color: black;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 8px;
+}
+
+.navigation-bar, .navigation-bar :link, .navigation-bar :visited {
+    color: #a5a5ff;
+}
+
+.sections {
+
+}
+
+/* Section */
+.sections > * {
+
+}
+
+/* Block */
+.sections > * > * {
+
+}
+
+svg {
+    stroke: #2c2c2c;
+}
+
+@media (prefers-color-scheme: light) {
+    .navigation-bar img {
+        background-color: #000000;
+        border-radius: 100%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #333333;
+        color: #ffffff;
+    }
+
+    .sections a {
+        color: white;
+        border-color: white;
+    }
+
+    svg {
+        stroke: #c3c3c3;
+    }
+    
+    .navigation-bar, .navigation-bar :link, .navigation-bar :visited {
+        color: #b5b5ff;
+    }
+    
+    .sections {
+    
+    }
+    
+    /* Section */
+    .sections > * {
+    
+    }
+    
+    /* Block */
+    .sections > * > * {
+        
+    }
+}

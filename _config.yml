@@ -1,0 +1,42 @@
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://skeleton.mechstack.dev" # the base hostname & protocol for your site, e.g. http://example.com
+
+webp:
+  enabled: true
+  quality: 75
+  img_dir: ["/assets/"]
+  nested: true
+  formats: [".jpeg", ".jpg", ".png", ".tiff", ".gif"]
+  gifs: [".gif"]
+  regenerate: false
+  # List of files or directories to exclude
+  # e.g. custom or hand generated webp conversion files
+  exclude: []
+  # append '.webp' to filename after original extension rather than replacing it.
+  # Default transforms `image.png` to `image.webp`, while changing to true transforms `image.png` to `image.png.webp`
+  append_ext: false
+
+# Build settings
+plugins:
+  - jekyll-target-blank
+  - jekyll-webp
+  - jekyll-remove-file-extension
+
+defaults:
+  - scope:
+      path: "assets"
+    values:
+      asset: true
+  - scope:
+      path: "lib"
+    values:
+      asset: true
+
+exclude:
+  - .bundle/
+  - .jekyll-cache/
+  - vendor/
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - run.sh

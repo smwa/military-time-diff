@@ -1,0 +1,66 @@
+---
+permalink: /
+layout: default
+---
+
+<div>
+    <div>
+        {% include picture.html url='assets/img/example1.jpg' title='Example One' %}
+    </div>
+    <div>Block of only text, test vertical image</div>
+</div>
+
+<div>
+    <div>
+        {% include picture.html url='assets/img/example2.jpg' title='Example Two' %}
+    </div>
+    <div>Block of only text, test horizontal image</div>
+</div>
+
+<!-- Selective display -->
+<div>
+    <div class="hide-on-mobile">shown on desktop, hidden on mobile</div>
+    <div class="hide-on-desktop">shown on mobile, hidden on desktop</div>
+</div>
+
+<!-- Contact info -->
+<div>
+    <div>
+        <a href="tel:+15544657894" class="center-content">
+            <i data-feather="phone"></i>
+            +1-554-465-7894
+        </a>
+        <a href="mailto:MyEmail+234@gmail.com" class="center-content">
+            <i data-feather="mail"></i>
+            MyEmail+234@gmail.com
+        </a>
+        <a href="https://google.com/">google</a>
+    </div>
+</div>
+
+<div>
+    <div>
+        Block of only text for fill
+    </div>
+    <div>
+        {% include picture.html url='assets/img/example1.jpg' title='Example One' %}
+        <div>Text on top of image</div>
+    </div>
+</div>
+
+<!-- Single image test, vertical -->
+<div>
+    <div>
+        {% include picture.html url='assets/img/example1.jpg' title='Example One' %}
+    </div>
+</div>
+
+<!-- Testing spacer -->
+<div></div>
+
+<!-- Single image test, horizontal -->
+<div>
+    <div>
+        {% include picture.html url='assets/img/example2.jpg' title='Example Two' %}
+    </div>
+</div>
