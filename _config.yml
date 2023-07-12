@@ -1,5 +1,5 @@
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://skeleton.mechstack.dev" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://aviation.mechstack.dev" # the base hostname & protocol for your site, e.g. http://example.com
 
 webp:
   enabled: true
