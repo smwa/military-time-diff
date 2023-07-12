@@ -48,20 +48,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #a5a5ff;
 }
 
-.sections {
-
-}
-
-/* Section */
-.sections > * {
-
-}
-
-/* Block */
-.sections > * > * {
-
-}
-
 svg {
     stroke: #2c2c2c;
 }
@@ -90,19 +76,5 @@ svg {
     
     .navigation-bar, .navigation-bar :link, .navigation-bar :visited {
         color: #b5b5ff;
-    }
-    
-    .sections {
-    
-    }
-    
-    /* Section */
-    .sections > * {
-    
-    }
-    
-    /* Block */
-    .sections > * > * {
-        
     }
 }
