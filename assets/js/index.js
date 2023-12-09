@@ -16,7 +16,9 @@ const recalculate = () => {
   const endTime = cleanupTimeInput(endTimeElement.value);
 
   if (
-    startTimeElement.value.length > 4
+    startTimeElement.value.length < 3
+    || endTimeElement.value.length < 3
+    || startTimeElement.value.length > 4
     || endTimeElement.value.length > 4
     || startTime[0] >= 24
     || endTime[0] >= 24
