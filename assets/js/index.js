@@ -89,7 +89,7 @@ const recalculateCountup = () => {
   }
 
   startTime[0] += Math.floor(hours);
-  const min = Math.round(Math.ceil(hours) - Math.floor(hours) * 60.0);
+  const min = Math.round((Math.ceil(hours) - Math.floor(hours)) * 60.0);
   startTime[1] += min;
   if (startTime[1] >= 60) {
     startTime[0] += 1;
