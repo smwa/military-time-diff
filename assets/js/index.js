@@ -44,22 +44,26 @@ const recalculate = () => {
   calculatedElement.innerText = `${hours}`;
 }
 
-startTimeElement.onchange = recalculate;
-startTimeElement.onkeyup = recalculate;
-startTimeElement.onpaste = recalculate;
-startTimeElement.oninput = recalculate;
+if (startTimeElement != null) {
+  startTimeElement.onchange = recalculate;
+  startTimeElement.onkeyup = recalculate;
+  startTimeElement.onpaste = recalculate;
+  startTimeElement.oninput = recalculate;
 
-startTimeElement.onfocus = (e) => {
-  e.target.select();
+  startTimeElement.onfocus = (e) => {
+    e.target.select();
+  }
 }
 
-endTimeElement.onchange = recalculate;
-endTimeElement.onkeyup = recalculate;
-endTimeElement.onpaste = recalculate;
-endTimeElement.oninput = recalculate;
+if (endTimeElement != null) {
+  endTimeElement.onchange = recalculate;
+  endTimeElement.onkeyup = recalculate;
+  endTimeElement.onpaste = recalculate;
+  endTimeElement.oninput = recalculate;
 
-endTimeElement.onfocus = (e) => {
-  e.target.select();
+  endTimeElement.onfocus = (e) => {
+    e.target.select();
+  }
 }
 
 
@@ -98,20 +102,24 @@ const recalculateCountup = () => {
   calculatedElement.innerText = `${startTime[0]}:${startTime[1]}`;
 }
 
-countupStartTimeElement.onchange = recalculateCountup;
-countupStartTimeElement.onkeyup = recalculateCountup;
-countupStartTimeElement.onpaste = recalculateCountup;
-countupStartTimeElement.oninput = recalculateCountup;
+if (countupStartTimeElement != null) {
+  countupStartTimeElement.onchange = recalculateCountup;
+  countupStartTimeElement.onkeyup = recalculateCountup;
+  countupStartTimeElement.onpaste = recalculateCountup;
+  countupStartTimeElement.oninput = recalculateCountup;
 
-countupStartTimeElement.onfocus = (e) => {
-  e.target.select();
+  countupStartTimeElement.onfocus = (e) => {
+    e.target.select();
+  }
 }
 
-countupHoursElement.onchange = recalculateCountup;
-countupHoursElement.onkeyup = recalculateCountup;
-countupHoursElement.onpaste = recalculateCountup;
-countupHoursElement.oninput = recalculateCountup;
+if (countupHoursElement != null) {
+  countupHoursElement.onchange = recalculateCountup;
+  countupHoursElement.onkeyup = recalculateCountup;
+  countupHoursElement.onpaste = recalculateCountup;
+  countupHoursElement.oninput = recalculateCountup;
 
-countupHoursElement.onfocus = (e) => {
-  e.target.select();
+  countupHoursElement.onfocus = (e) => {
+    e.target.select();
+  }
 }
