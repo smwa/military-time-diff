@@ -8,21 +8,21 @@ layout: default
       <span>Times are 24-hour, with no punctuation. e.g. 2315 for 11:15pm.</span>
     </div>
     <div>
-      <a href="/countup/">Find time after hours instead</span>
+      <a href="/">Back to time difference</span>
     </div>
     <div>
       <input
-        id="starttime"
+        id="countupstarttime"
         placeholder="Start"
         inputmode="numeric"
         pattern="[0-9]{4}"
         type="number" />
       <input
-        id="endtime"
-        placeholder="End"
+        id="countuphours"
+        placeholder="Hours after Start"
         inputmode="numeric"
-        pattern="[0-9]{4}"
+        pattern="[0-9]{4}(\.[0-9]{1,2})?"
         type="number" />
-      <div><span id="calculated">...</span> Hours</div>
+      <div><span id="calculated">...</span> End Time</div>
     </div>
 </div>

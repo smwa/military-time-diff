@@ -61,3 +61,57 @@ endTimeElement.oninput = recalculate;
 endTimeElement.onfocus = (e) => {
   e.target.select();
 }
+
+
+
+const countupStartTimeElement = document.getElementById('countupstarttime');
+const countupHoursElement = document.getElementById('countuphours');
+
+
+const recalculateCountup = () => {
+  const startTime = cleanupTimeInput(countupStartTimeElement.value);
+  const hours = parseFloat(countupHoursElement.value);
+
+
+  if (
+    countupStartTimeElement.value.length < 3
+    || countupStartTimeElement.value.length > 4
+    || startTime[0] >= 24
+    || startTime[1] >= 60
+    || isNaN(hours)
+  ) {
+    calculatedElement.innerText = '...';
+    return;
+  }
+
+  startTime[0] += Math.floor(hours);
+  const min = Math.round(Math.ceil(hours) - Math.floor(hours) * 60.0);
+  startTime[1] += min;
+  if (startTime[1] >= 60) {
+    startTime[0] += 1;
+    startTime[1] -= 60;
+  }
+  if (startTime[0] >= 24) {
+    startTime[0] -= 24;
+  }
+
+  calculatedElement.innerText = `${startTime[0]}:${startTime[1]}`;
+}
+
+countupStartTimeElement.onchange = recalculateCountup;
+countupStartTimeElement.onkeyup = recalculateCountup;
+countupStartTimeElement.onpaste = recalculateCountup;
+countupStartTimeElement.oninput = recalculateCountup;
+
+countupStartTimeElement.onfocus = (e) => {
+  e.target.select();
+}
+
+countupHoursElement.onchange = recalculateCountup;
+countupHoursElement.onkeyup = recalculateCountup;
+countupHoursElement.onpaste = recalculateCountup;
+countupHoursElement.oninput = recalculateCountup;
+
+countupHoursElement.onfocus = (e) => {
+  e.target.select();
+}
