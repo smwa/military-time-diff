@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Military Time Tools</title>
+  <script>
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    document.documentElement.setAttribute('data-bs-theme', mq.matches ? 'dark' : 'light');
+    mq.addEventListener('change', e => document.documentElement.setAttribute('data-bs-theme', e.matches ? 'dark' : 'light'));
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .result-display {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #0d6efd;
+      min-height: 2.5rem;
+    }
+    .result-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h1 class="mb-1 fw-bold">Military Time Tools</h1>
+    <p class="text-muted mb-4">Utilities for pilots and aviators</p>
+
+    <div class="row g-4">
+
+      <!-- Flight Duration Card -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body p-4">
+            <h5 class="card-title mb-1">Flight Duration</h5>
+            <p class="text-muted small mb-4">Enter takeoff and landing times to calculate flight duration. Handles midnight wrap-around.</p>
+
+            <div class="mb-3">
+              <label for="takeoff" class="form-label">Takeoff Time</label>
+              <input type="text" class="form-control form-control-lg" id="takeoff"
+                     placeholder="e.g. 1430 or 14:30" maxlength="5" autocomplete="off">
+            </div>
+            <div class="mb-4">
+              <label for="landing" class="form-label">Landing Time</label>
+              <input type="text" class="form-control form-control-lg" id="landing"
+                     placeholder="e.g. 1715 or 17:15" maxlength="5" autocomplete="off">
+            </div>
+
+            <div class="bg-body-secondary rounded p-3 text-center">
+              <div class="result-label">Duration</div>
+              <div class="result-display" id="duration-result">—</div>
+              <div class="text-muted small" id="duration-note"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Addition Card -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body p-4">
+            <h5 class="card-title mb-1">Time Addition</h5>
+            <p class="text-muted small mb-4">Enter a start time and number of hours to find the resulting military time.</p>
+
+            <div class="mb-3">
+              <label for="start-time" class="form-label">Start Time</label>
+              <input type="text" class="form-control form-control-lg" id="start-time"
+                     placeholder="e.g. 0900 or 09:00" maxlength="5" autocomplete="off">
+            </div>
+            <div class="mb-4">
+              <label for="add-hours" class="form-label">Hours to Add</label>
+              <input type="text" class="form-control form-control-lg" id="add-hours"
+                     placeholder="e.g. 2.5" autocomplete="off">
+            </div>
+
+            <div class="bg-body-secondary rounded p-3 text-center">
+              <div class="result-label">Result Time</div>
+              <div class="result-display" id="addition-result">—</div>
+              <div class="text-muted small" id="addition-note"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function parseMilitary(raw) {
+      // Strip any non-digit characters (colons, dots, dashes, spaces)
+      const digits = raw.replace(/\D/g, '');
+      if (digits.length < 3 || digits.length > 4) return null;
+
+      let h, m;
+      if (digits.length === 3) {
+        h = parseInt(digits[0], 10);
+        m = parseInt(digits.slice(1), 10);
+      } else {
+        h = parseInt(digits.slice(0, 2), 10);
+        m = parseInt(digits.slice(2), 10);
+      }
+
+      if (h < 0 || h > 23 || m < 0 || m > 59) return null;
+      return h * 60 + m; // total minutes from midnight
+    }
+
+    function toMilitary(totalMinutes) {
+      // Wrap around midnight
+      totalMinutes = ((totalMinutes % 1440) + 1440) % 1440;
+      const h = Math.floor(totalMinutes / 60);
+      const m = totalMinutes % 60;
+      return String(h).padStart(2, '0') + String(m).padStart(2, '0');
+    }
+
+    function minutesToHours(minutes) {
+      return (minutes / 60).toFixed(2);
+    }
+
+    // Flight Duration
+    function calcDuration() {
+      const takeoffVal = document.getElementById('takeoff').value.trim();
+      const landingVal = document.getElementById('landing').value.trim();
+      const resultEl = document.getElementById('duration-result');
+      const noteEl = document.getElementById('duration-note');
+
+      if (!takeoffVal || !landingVal) {
+        resultEl.textContent = '—';
+        noteEl.textContent = '';
+        return;
+      }
+
+      const takeoff = parseMilitary(takeoffVal);
+      const landing = parseMilitary(landingVal);
+
+      if (takeoff === null || landing === null) {
+        resultEl.textContent = '—';
+        noteEl.textContent = 'Invalid time format';
+        return;
+      }
+
+      let diffMinutes = landing - takeoff;
+      let wrappedNote = '';
+      if (diffMinutes < 0) {
+        diffMinutes += 1440; // wrap around midnight
+        wrappedNote = 'Wrapped around midnight';
+      }
+
+      resultEl.textContent = minutesToHours(diffMinutes) + ' hrs';
+      noteEl.textContent = wrappedNote;
+    }
+
+    // Time Addition
+    function calcAddition() {
+      const startVal = document.getElementById('start-time').value.trim();
+      const hoursVal = document.getElementById('add-hours').value.trim();
+      const resultEl = document.getElementById('addition-result');
+      const noteEl = document.getElementById('addition-note');
+
+      if (!startVal || !hoursVal) {
+        resultEl.textContent = '—';
+        noteEl.textContent = '';
+        return;
+      }
+
+      const startMinutes = parseMilitary(startVal);
+      const hoursFloat = parseFloat(hoursVal);
+
+      if (startMinutes === null || isNaN(hoursFloat)) {
+        resultEl.textContent = '—';
+        noteEl.textContent = 'Invalid input';
+        return;
+      }
+
+      const addMinutes = Math.round(hoursFloat * 60);
+      const totalMinutes = startMinutes + addMinutes;
+      const wraps = Math.floor(((startMinutes + addMinutes) % 1440 !== (startMinutes + addMinutes)) || totalMinutes >= 1440 || totalMinutes < 0);
+      const result = toMilitary(totalMinutes);
+
+      resultEl.textContent = result;
+
+      // Show a note if it crosses midnight
+      if (totalMinutes >= 1440 || totalMinutes < 0) {
+        const days = Math.floor(Math.abs(totalMinutes) / 1440) * (totalMinutes < 0 ? -1 : 1);
+        noteEl.textContent = days > 0 ? `+${days} day(s)` : `${days} day(s)`;
+      } else {
+        noteEl.textContent = '';
+      }
+    }
+
+    ['takeoff', 'landing'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcDuration);
+    });
+
+    ['start-time', 'add-hours'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcAddition);
+    });
+  </script>
+</body>
+</html>
